@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -13,8 +14,8 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class UserService {
     private final UserRepository userRepository;
     private final CategoryRespository categoryRespository;
@@ -24,6 +25,7 @@ public class UserService {
     private final BookmarkRepository bookmarkRepository;
 
 
+    @Transactional
     public Long registerUser(SignUpRequest signUpRequestDto) throws Exception{
         if (userRepository.existsByProviderId(signUpRequestDto.getProviderId())) {
             throw new Exception("중복된 유저가 존재합니다.");

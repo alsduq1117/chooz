@@ -24,4 +24,14 @@ public class User {
     private GenderType gender;
     private MbtiType mbti;
     private LocalDateTime modifiedMBTIDate;
+
+
+
+
+
+
+
+
+
+
 }

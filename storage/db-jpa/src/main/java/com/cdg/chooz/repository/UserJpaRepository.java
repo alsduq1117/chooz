@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
-public abstract class UserJpaRepository implements UserRepository {
+public class UserJpaRepository implements UserRepository {
 
     private final EntityManager em;
     @Override
@@ -30,6 +30,11 @@ public abstract class UserJpaRepository implements UserRepository {
         else{
             return false;
         }
+    }
+
+    @Override
+    public void save(User user){
+        em.persist(UserEntity.from(user));
     }
 
 }

@@ -80,22 +80,6 @@ public class UserEntity extends BaseTimeEntity {
         this.mbti = mbti;
         this.modifiedMBTIDate = modifiedMBTIDate;
     }
-
-    @Builder
-    public UserEntity(String nickname, String email, String imageUrl, String password, Providers provider, String providerId, Role role, Integer age, GenderType gender, MbtiType mbti, LocalDateTime modifiedMBTIDate) {
-        this.nickname = nickname;
-        this.email = email;
-        this.imageUrl = imageUrl;
-        this.password = password;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.role = role;
-        this.age = age;
-        this.gender = gender;
-        this.mbti = mbti;
-        this.modifiedMBTIDate = modifiedMBTIDate;
-    }
-
     public AgeType classifyAge(Integer age) {
         AgeType ageGroup;
         switch (age / 10) {
@@ -138,6 +122,13 @@ public class UserEntity extends BaseTimeEntity {
         this.gender = gender;
         this.mbti = mbti;
         this.modifiedMBTIDate = modifiedMBTIDate;
+    }
+
+    public static UserEntity from(User user) {
+        if(user.getId() == null){
+            return new UserEntity(null,user.getNickname(),user.getEmail(),user.getImageUrl(),user.getPassword(),user.getProvider(),user.getProviderId(),user.getRole(),user.getAge(),user.getGender(),user.getMbti(),user.getModifiedMBTIDate());
+        }
+        return new UserEntity(user.getId(),user.getNickname(),user.getEmail(),user.getImageUrl(),user.getPassword(),user.getProvider(),user.getProviderId(),user.getRole(),user.getAge(),user.getGender(),user.getMbti(),user.getModifiedMBTIDate());
     }
 
 
