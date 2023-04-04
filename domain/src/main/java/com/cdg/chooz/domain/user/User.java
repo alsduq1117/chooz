@@ -11,19 +11,30 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class User {
-
     private Long id;
-    private String nickname;
+    private String name;
     private String email;
-    private String imageUrl;
     private String password;
-    private Providers provider;    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
-    private String providerId;  // oauth2를 이용할 경우 아이디값
-    private Role role;
+    private String providerId;
+    private ProviderType provider;
+    private RoleType role;
     private Integer age;
     private GenderType gender;
     private MbtiType mbti;
-    private LocalDateTime modifiedMBTIDate;
+
+    public User(String name, String email, String password, String providerId){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.providerId = providerId;
+    }
+
+    public User(GeneralSignUpInfo signUpInfo){
+        this.name=signUpInfo.getName();
+        this.email = signUpInfo.getEmail();
+        this.password = signUpInfo.getPassword();
+    }
+
 
 
 

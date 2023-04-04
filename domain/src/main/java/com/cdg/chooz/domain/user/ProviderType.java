@@ -1,5 +1,5 @@
 package com.cdg.chooz.domain.user;
 
-public enum Providers {
+public enum ProviderType {
     KAKAO, NAVER, GOOGLE
 }

@@ -1,9 +1,10 @@
-package com.cdg.chooz.entity.user;
+package com.cdg.chooz.db.user;
 
+import com.cdg.chooz.db.vote.BookmarkEntity;
+import com.cdg.chooz.domain.user.ProviderType;
+import com.cdg.chooz.domain.user.RoleType;
 import com.cdg.chooz.domain.user.User;
-import com.cdg.chooz.entity.common.BaseTimeEntity;
-import com.cdg.chooz.domain.user.Providers;
-import com.cdg.chooz.domain.user.Role;
+import com.cdg.chooz.db.common.BaseTimeEntity;
 import com.cdg.chooz.domain.vote.AgeType;
 import com.cdg.chooz.domain.vote.GenderType;
 import com.cdg.chooz.domain.vote.MbtiType;
@@ -11,6 +12,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -33,12 +36,12 @@ public class UserEntity extends BaseTimeEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Providers provider;    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
+    private ProviderType provider;    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
 
     private String providerId;  // oauth2를 이용할 경우 아이디값
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private RoleType role;
 
     private Integer age;
 
@@ -48,8 +51,24 @@ public class UserEntity extends BaseTimeEntity {
     @Enumerated(EnumType.STRING)
     private MbtiType mbti;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @JoinColumn(name = "USER_ID")
+    private List<CategoryEntity> categoryLists = new ArrayList<>();
+
     @Column(name = "modified_MBTI_Date")
     private LocalDateTime modifiedMBTIDate;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<BookmarkEntity> bookmarkList = new ArrayList<>();
+
+    public void mappingBookmark(BookmarkEntity bookmark) {
+        this.bookmarkList.add(bookmark);
+    }
+
+    public void updateProfile(String nickname, String image) {
+        this.nickname = nickname;
+        this.imageUrl = image;
+    }
 
 //    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
 //    @JoinColumn(name = "USER_ID")
@@ -66,20 +85,16 @@ public class UserEntity extends BaseTimeEntity {
 //    public void mappingCommentLike(CommentEmotion commentEmotion) {
 //        this.commentEmotionList.add(commentEmotion);
 //    }
-//
-//    public void mappingBookmark(Bookmark bookmark) {
-//        this.bookmarkList.add(bookmark);
+
+//    public void updateProfile(String nickname, String image) {
+//        this.nickname = nickname;
+//        this.imageUrl = image;
 //    }
-
-    public void updateProfile(String nickname, String image) {
-        this.nickname = nickname;
-        this.imageUrl = image;
-    }
-
-    public void updateMbti(MbtiType mbti, LocalDateTime modifiedMBTIDate) {
-        this.mbti = mbti;
-        this.modifiedMBTIDate = modifiedMBTIDate;
-    }
+//
+//    public void updateMbti(MbtiType mbti, LocalDateTime modifiedMBTIDate) {
+//        this.mbti = mbti;
+//        this.modifiedMBTIDate = modifiedMBTIDate;
+//    }
     public AgeType classifyAge(Integer age) {
         AgeType ageGroup;
         switch (age / 10) {
@@ -109,32 +124,25 @@ public class UserEntity extends BaseTimeEntity {
 //        this.categoryLists.clear();
 //    }
 
-    public UserEntity(Long id, String nickname, String email, String imageUrl, String password, Providers provider, String providerId, Role role, Integer age, GenderType gender, MbtiType mbti, LocalDateTime modifiedMBTIDate) {
-        this.id = id;
+    @Builder
+    public UserEntity(User user) {
         this.nickname = nickname;
         this.email = email;
         this.imageUrl = imageUrl;
         this.password = password;
-        this.provider = provider;
-        this.providerId = providerId;
-        this.role = role;
-        this.age = age;
-        this.gender = gender;
-        this.mbti = mbti;
-        this.modifiedMBTIDate = modifiedMBTIDate;
     }
 
-    public static UserEntity from(User user) {
-        if(user.getId() == null){
-            return new UserEntity(null,user.getNickname(),user.getEmail(),user.getImageUrl(),user.getPassword(),user.getProvider(),user.getProviderId(),user.getRole(),user.getAge(),user.getGender(),user.getMbti(),user.getModifiedMBTIDate());
-        }
-        return new UserEntity(user.getId(),user.getNickname(),user.getEmail(),user.getImageUrl(),user.getPassword(),user.getProvider(),user.getProviderId(),user.getRole(),user.getAge(),user.getGender(),user.getMbti(),user.getModifiedMBTIDate());
-    }
-
-
-
-    public User toDomain() {
-        return new User(id,nickname,email,imageUrl,password,provider,providerId,role,age,gender,mbti,modifiedMBTIDate);
-    }
+//    public static UserEntity from(User user) {
+//        if(user.getId() == null){
+//            return new UserEntity(null,user.getNickname(),user.getEmail(),user.getImageUrl(),user.getPassword(),user.getProvider(),user.getProviderId(),user.getRole(),user.getAge(),user.getGender(),user.getMbti(),user.getModifiedMBTIDate());
+//        }
+//        return new UserEntity(user.getId(),user.getNickname(),user.getEmail(),user.getImageUrl(),user.getPassword(),user.getProvider(),user.getProviderId(),user.getRole(),user.getAge(),user.getGender(),user.getMbti(),user.getModifiedMBTIDate());
+//    }
+//
+//
+//
+//    public User toDomain() {
+//        return new User(id,nickname,email,imageUrl,password,provider,providerId,role,age,gender,mbti,modifiedMBTIDate);
+//    }
 
 }
