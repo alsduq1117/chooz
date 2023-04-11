@@ -1,6 +1,5 @@
 package com.cdg.chooz.db.user;
 
-
 import com.cdg.chooz.domain.user.User;
 import com.cdg.chooz.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,5 +20,12 @@ class UserRepositoryAdaptor implements UserRepository {
     public void register(User user) {
         UserEntity userEntity = new UserEntity(user);
         userJpaRepository.save(userEntity);
+    }
+
+    @Override
+    public User findByProviderId(String providerId) {
+        return userJpaRepository.findByProviderId(providerId)
+                .map(UserEntity::toDomain)
+                .orElse(null);
     }
 }

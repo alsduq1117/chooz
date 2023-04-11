@@ -3,12 +3,15 @@ package com.cdg.chooz.domain.user;
 import com.cdg.chooz.domain.vote.GenderType;
 import com.cdg.chooz.domain.vote.MbtiType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Getter
+@Builder
+@NoArgsConstructor
 @AllArgsConstructor
 public class User {
     private Long id;
@@ -22,27 +25,21 @@ public class User {
     private GenderType gender;
     private MbtiType mbti;
 
-    public User(String name, String email, String password, String providerId){
+    public User(String name, String email, String password, String providerId) {
         this.name = name;
         this.email = email;
         this.password = password;
         this.providerId = providerId;
     }
 
-    public User(GeneralSignUpInfo signUpInfo){
-        this.name=signUpInfo.getName();
-        this.email = signUpInfo.getEmail();
-        this.password = signUpInfo.getPassword();
+    public User(GeneralSignupInfo signupInfo) {
+        this.name = signupInfo.getName();
+        this.email = signupInfo.getEmail();
+        this.password = signupInfo.getPassword();
     }
 
-
-
-
-
-
-
-
-
-
-
+    public User(String providerId, ProviderType providerType) {
+        this.providerId = providerId;
+        this.provider = providerType;
+    }
 }
