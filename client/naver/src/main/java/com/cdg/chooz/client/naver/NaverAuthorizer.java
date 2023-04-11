@@ -3,7 +3,6 @@ package com.cdg.chooz.client.naver;
 import com.cdg.chooz.domain.user.ProviderType;
 import com.cdg.chooz.domain.user.ThirdPartyAuthorizer;
 import com.cdg.chooz.domain.user.ThirdPartySignupInfo;
-import com.cdg.chooz.domain.user.User;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;

@@ -51,6 +51,7 @@ public class SignupController {
         return new ResponseEntity(new GetLoginTokenResponse(loginToken), HttpStatus.OK);
     }
 
+
     @PostMapping("/signup/naver")
     public ResponseEntity<GetLoginTokenResponse> signupByNAVER(@Valid @RequestBody GetnaverTokenRequest request) {
         LoginToken loginToken = signupService.signupByThirdParty(request.toDomain());
