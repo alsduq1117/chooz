@@ -1,4 +1,4 @@
 package com.cdg.chooz.controller.user;
 
-public class MypageController {
+public class MyPageController {
 }
