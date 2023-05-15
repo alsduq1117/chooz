@@ -7,7 +7,6 @@ import com.cdg.chooz.domain.user.RoleType;
 import com.cdg.chooz.domain.user.User;
 import com.cdg.chooz.domain.vote.GenderType;
 import com.cdg.chooz.domain.vote.MbtiType;
-import com.cdg.chooz.entity.comment.CommentEmotion;
 import lombok.*;
 
 import javax.persistence.*;

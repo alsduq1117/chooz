@@ -3,7 +3,6 @@ package com.cdg.chooz.controller.token;
 import com.cdg.chooz.controller.token.response.TokenResponse;
 import com.cdg.chooz.domain.token.TokenType;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

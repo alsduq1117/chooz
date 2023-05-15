@@ -1,7 +1,7 @@
 package com.cdg.chooz.controller.user.response;
 
 import com.cdg.chooz.domain.token.LoginToken;
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class GetLoginTokenResponse {

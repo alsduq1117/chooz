@@ -13,7 +13,7 @@ class UserRepositoryAdaptor implements UserRepository {
 
     @Override
     public boolean existsByProviderId(String providerId) {
-        return false;
+        return userJpaRepository.existsByProviderId(providerId);
     }
 
     @Override

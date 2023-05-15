@@ -29,12 +29,15 @@ public class UserRegister {
      *
      * @param providerId
      * @param providerType
+     * @return 새로 가입한 유저인지 아닌지
      */
-    public void registerIfNeed(String providerId, ProviderType providerType) {
+    public boolean registerIfNeed(String providerId, ProviderType providerType) {
         if (userRepository.existsByProviderId(providerId)) {
-            return;
+            return false;
         }
         User user = new User(providerId, providerType);
         userRepository.register(user);
+        return true;
     }
 }
+

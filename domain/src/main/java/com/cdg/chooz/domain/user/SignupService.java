@@ -24,9 +24,8 @@ public class SignupService {
         Map<String, String> userInfo = authorizer.getUserInfo(accessToken);
         String providerId = userInfo.get("id");
 
-        userRegister.registerIfNeed(providerId, signupInfo.getProviderType());
+        boolean isNewUser = userRegister.registerIfNeed(providerId, signupInfo.getProviderType());
 
-        LoginToken loginToken = tokenGenerator.generate(providerId);
-        return loginToken;
+        return tokenGenerator.generate(providerId, isNewUser);
     }
 }

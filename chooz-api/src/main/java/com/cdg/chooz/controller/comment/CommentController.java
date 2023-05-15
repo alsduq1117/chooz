@@ -5,6 +5,7 @@ import com.cdg.chooz.controller.comment.request.CommentGetRequest;
 import com.cdg.chooz.controller.comment.request.CommentUpdateRequest;
 import com.cdg.chooz.controller.comment.response.CommentGetResponse;
 import com.cdg.chooz.controller.common.CommonResponse;
+import com.cdg.chooz.domain.user.UserId;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,9 @@ public class CommentController {
     @PostMapping("/votes/{voteId}/comments")
     public ResponseEntity<CommonResponse> createComment(
             @PathVariable Long voteId,
-            @RequestBody @Valid CommentCreateRequest commentCreateRequest) {
+            @RequestBody @Valid CommentCreateRequest commentCreateRequest,
+            UserId userId
+    ) {
 //        Integer userId = (int) claims.get("userId");
 //        Long longId = Long.valueOf(userId);
 

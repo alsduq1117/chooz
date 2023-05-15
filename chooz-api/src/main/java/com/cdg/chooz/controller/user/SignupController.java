@@ -2,8 +2,8 @@ package com.cdg.chooz.controller.user;
 
 import com.cdg.chooz.controller.common.CommonResponse;
 import com.cdg.chooz.controller.user.request.GeneralSignUpRequest;
-import com.cdg.chooz.controller.user.request.GetkakaoTokenRequest;
-import com.cdg.chooz.controller.user.request.GetnaverTokenRequest;
+import com.cdg.chooz.controller.user.request.GetKakaoTokenRequest;
+import com.cdg.chooz.controller.user.request.GetNaverTokenRequest;
 import com.cdg.chooz.controller.user.response.GetLoginTokenResponse;
 import com.cdg.chooz.domain.token.LoginToken;
 import com.cdg.chooz.domain.user.SignupService;
@@ -30,12 +30,6 @@ public class SignupController {
     @PostMapping("/signup")
     public ResponseEntity<CommonResponse> signup(@Valid @RequestBody GeneralSignUpRequest request) {
         signupService.signup(request.toDomain());
-//        try {
-//            userService.registerUser(signUpRequestDto);
-//        } catch (Exception e) {
-//            CommonResponse response = new CommonResponse("조건을 만족하는 유저가 이미 존재합니다. 다시한번 확인하세요"); // TODO 동일 유저 외에 다른 에러가 발생한 거라면??
-//            return new ResponseEntity(response, HttpStatus.CONFLICT);
-//        }
         return new ResponseEntity(new CommonResponse("회원가입에 성공했습니다."), HttpStatus.OK);
     }
 
@@ -46,16 +40,14 @@ public class SignupController {
      * @return 엑세스 토큰
      */
     @PostMapping("/signup/kakao")
-    public ResponseEntity<GetLoginTokenResponse> signupByKakao(@Valid @RequestBody GetkakaoTokenRequest request) {
+    public ResponseEntity<GetLoginTokenResponse> signupByKakao(@Valid @RequestBody GetKakaoTokenRequest request) {
         LoginToken loginToken = signupService.signupByThirdParty(request.toDomain());
         return new ResponseEntity(new GetLoginTokenResponse(loginToken), HttpStatus.OK);
     }
-
 
     @PostMapping("/signup/naver")
-    public ResponseEntity<GetLoginTokenResponse> signupByNAVER(@Valid @RequestBody GetnaverTokenRequest request) {
+    public ResponseEntity<GetLoginTokenResponse> signupByNaver(@Valid @RequestBody GetNaverTokenRequest request) {
         LoginToken loginToken = signupService.signupByThirdParty(request.toDomain());
         return new ResponseEntity(new GetLoginTokenResponse(loginToken), HttpStatus.OK);
     }
-
 }

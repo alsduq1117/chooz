@@ -10,6 +10,7 @@ import java.util.List;
 public class ThirdPartyAuthorizerProvider {
     private final List<ThirdPartyAuthorizer> thirdPartyAuthorizers;
 
+
     public ThirdPartyAuthorizer get(ProviderType providerType) {
         return thirdPartyAuthorizers.stream()
                 .filter(authorizer -> authorizer.getProviderType() == providerType)
