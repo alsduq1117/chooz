@@ -6,4 +6,6 @@ public interface UserRepository {
     void register(User user);
 
     User findByProviderId(String providerId);
+
+    User findById(Long userId);
 }

@@ -8,7 +8,8 @@ public enum VoteCategoryType implements EnumModel {
     CAREER("진로"),
     LOVE("연애"),
     FASHION("패션"),
-    INTEREST("재미");
+    INTEREST("재미"),
+    ETC("기타");
 
     private String value;
 

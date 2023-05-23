@@ -28,4 +28,11 @@ class UserRepositoryAdaptor implements UserRepository {
                 .map(UserEntity::toDomain)
                 .orElse(null);
     }
+
+    @Override
+    public User findById(Long userId) {
+        return userJpaRepository.findById(userId)
+                .map(UserEntity::toDomain)
+                .orElse(null);
+    }
 }
